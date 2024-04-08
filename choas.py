@@ -7,9 +7,10 @@ from matplotlib.animation import FuncAnimation
 L1, L2 = 1, 1  # Length of pendulum arms
 m1, m2 = 1, 1  # Masses
 g = 9.81  # Acceleration due to gravity
+perturbation = 0.3  # Initial perturbation for the angles
 
 def derivs(t, state):
-    
+
     """
     Calculate the derivatives of the states.
 
@@ -40,11 +41,11 @@ def derivs(t, state):
     return dydx
 
 # Number of pendulums
-num_pendulums = 10
+num_pendulums = 30
 
 # Array of initial conditions: [theta1, omega1, theta2, omega2]
 initial_states = np.zeros((num_pendulums, 4))
-initial_states[:, 0] = np.pi / 2  # Initial angle for theta1
+initial_states[:, 0] = np.pi / 2 + np.random.uniform(-perturbation, perturbation, num_pendulums)  # Initial angle for theta1
 
 # Time span for the simulation
 t_span = [0, 20]
