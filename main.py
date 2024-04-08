@@ -9,7 +9,7 @@ m1, m2 = 1, 1  # Masses
 g = 9.81  # Acceleration due to gravity
 
 def derivs(t, state):
-    
+
     """
     Calculate the derivatives of the states.
 
@@ -43,8 +43,8 @@ def derivs(t, state):
 initial_state = [np.pi / 2, 0, np.pi, 0]
 
 # Time span for the simulation
-t_span = [0, 20]
-t_eval = np.linspace(t_span[0], t_span[1], 1000)
+t_span = [0, 90]
+t_eval = np.linspace(t_span[0], t_span[1], 3000)
 
 # Solving the ODE
 sol = solve_ivp(derivs, t_span, initial_state, t_eval=t_eval)
