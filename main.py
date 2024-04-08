@@ -44,7 +44,7 @@ initial_state = [np.pi / 2, 0, np.pi, 0]
 
 # Time span for the simulation
 t_span = [0, 90]
-t_eval = np.linspace(t_span[0], t_span[1], 3000)
+t_eval = np.linspace(t_span[0], t_span[1], 1000)
 
 # Solving the ODE
 sol = solve_ivp(derivs, t_span, initial_state, t_eval=t_eval)
@@ -67,10 +67,14 @@ def init():
     return line,
 
 def update(frame):
-    x = [0, L1 * np.sin(theta1[frame]), L2 * np.sin(theta2[frame])]
-    y = [0, -L1 * np.cos(theta1[frame]), -L2 * np.cos(theta2[frame])]
+    x = [0, L1 * np.sin(theta1[frame]), L1 * np.sin(theta1[frame]) + L2 * np.sin(theta2[frame])]
+    y = [0, -L1 * np.cos(theta1[frame]), -L1 * np.cos(theta1[frame]) - L2 * np.cos(theta2[frame])]
     line.set_data(x, y)
     return line,
+
+# Increase the number of frames and update interval for smoother animation
+frames = len(sol.t)
+interval = 1000 * t_span[1] / frames  # milliseconds
 
 ani = FuncAnimation(fig, update, frames=len(sol.t), init_func=init, blit=True)
 plt.show()
